@@ -142,6 +142,10 @@ endif()
 add_library(luabind ${LUABIND_SRCS} ${LUABIND_API} ${LUABIND_DETAIL_API} ${LUABIND_DEFAULT_POLICIES} ${LUABIND_USER_POLICIES})
 target_link_libraries(luabind ${LUA_LIBRARIES} ${LUABIND_EXTRA_LIBS})
 
+if(UNIX)
+	target_link_libraries(luabind dl)
+endif()
+
 set_property(TARGET luabind PROPERTY COMPILE_FLAGS ${CMAKE_SHARED_LIBRARY_C_FLAGS})
 set_property(TARGET luabind PROPERTY PROJECT_LABEL "LuaBind Library")
 

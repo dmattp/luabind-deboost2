@@ -25,6 +25,7 @@
 #define LUABIND_CONVERT_TO_LUA_HPP_INCLUDED
 
 #include <luabind/config.hpp>
+#include <luabind/detail/type_traits.hpp>
 #include <luabind/detail/policy.hpp>
 
 namespace luabind {
