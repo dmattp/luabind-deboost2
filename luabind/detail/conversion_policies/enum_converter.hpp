@@ -30,6 +30,12 @@
 namespace luabind {
 	namespace detail {
 
+		// See https://stackoverflow.com/a/39807690/2482983
+		template<typename T>
+		using is_class_enum = std::integral_constant<
+			bool,
+			std::is_enum<T>::value && !std::is_convertible<T, int>::value>;
+
 		struct enum_converter
 		{
 			using type = enum_converter;
@@ -40,6 +46,13 @@ namespace luabind {
 			void to_lua(lua_State* L, int val)
 			{
 				lua_pushnumber(L, val);
+			}
+
+			template<typename TEnumClass>
+				typename std::enable_if_t<is_class_enum<TEnumClass>::value,void>
+					to_lua(lua_State* L, TEnumClass val)
+			{
+				lua_pushnumber(L,static_cast<lua_Number>(val));
 			}
 
 			template<class T>
