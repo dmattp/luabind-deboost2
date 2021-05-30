@@ -52,7 +52,7 @@ namespace luabind {
 				typename std::enable_if_t<is_class_enum<TEnumClass>::value,void>
 					to_lua(lua_State* L, TEnumClass val)
 			{
-				lua_pushnumber(L,static_cast<lua_Number>(val));
+				lua_pushinteger(L,static_cast<lua_Integer>(val));
 			}
 
 			template<class T>
