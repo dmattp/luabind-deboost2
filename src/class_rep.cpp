@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2003 Daniel Wallin and Arvid Norberg
+// Copyright (c) 2003 Daniel Wallin and Arvid Norberg
 
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the "Software"),
@@ -290,8 +290,8 @@ int luabind::detail::class_rep::static_class_gettable(lua_State* L)
 
 #ifndef LUABIND_NO_ERROR_CHECKING
 
-	lua_pushfstring(L, "no static '%s' in class '%s'", key, crep->name());
-	lua_error(L);
+	// lua_pushfstring(L, "no static '%s' in class '%s'", key, crep->name());
+	// lua_error(L);
 
 #endif
 
