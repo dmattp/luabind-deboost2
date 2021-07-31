@@ -8,7 +8,9 @@
 #include <luabind/config.hpp>
 #include <luabind/lua_include.hpp>
 #include <luabind/typeid.hpp>
+#include <luabind/pseudo_traits.hpp>
 #include <luabind/detail/meta.hpp>
+#include <luabind/detail/type_info.hpp>
 
 namespace luabind {
 	namespace adl {
