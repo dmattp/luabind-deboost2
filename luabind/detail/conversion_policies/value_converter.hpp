@@ -21,6 +21,7 @@
 #include <luabind/lua_include.hpp>
 #include <luabind/back_reference.hpp>
 #include <luabind/detail/object_rep.hpp>
+#include <luabind/detail/make_instance.hpp>
 
 namespace luabind {
 	namespace detail {
@@ -64,6 +65,8 @@ namespace luabind {
 				if(obj == 0) return no_match;
 
 				std::pair<void*, int> s = obj->get_instance(registered_class<T>::id);
+				if(s.first == nullptr)
+					return no_match;
 				result = s.first;
 				return s.second;
 			}
