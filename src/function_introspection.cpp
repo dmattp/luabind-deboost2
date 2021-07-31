@@ -50,6 +50,7 @@
 #include <luabind/scope.hpp>            // for module, module_, scope
 #include <luabind/lua_argument_proxy.hpp>
 #include <luabind/detail/conversion_policies/conversion_policies.hpp>
+#include <luabind/make_function_signature.hpp>
 
 // Library/third-party includes
 // - none

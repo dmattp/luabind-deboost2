@@ -8,8 +8,10 @@
 #include <luabind/config.hpp>
 #include <luabind/detail/object.hpp>
 #include <luabind/detail/call.hpp>
+#include <luabind/detail/type_info.hpp>
 #include <luabind/detail/deduce_signature.hpp>
 #include <luabind/detail/format_signature.hpp>
+#include <vector>
 
 namespace luabind {
 
@@ -46,6 +48,8 @@ namespace luabind {
 			{
 				detail::format_signature(L, function, Signature());
 			}
+
+			void get_signature_info(lua_State* L, char const* function, std::vector<TypeInfo> &outTypes) const;
 
 			static bool invoke_defer(lua_State* L, function_object_impl* impl, invoke_context& ctx, int& results)
 			{
