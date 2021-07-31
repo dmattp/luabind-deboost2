@@ -119,7 +119,7 @@ namespace luabind {
 
 		std::pair<void*, int> cast_graph::impl::cast(void* const p, class_id src, class_id target, class_id dynamic_id, void const* dynamic_ptr) const
 		{
-			if(src == target) return std::make_pair(p, 0);
+			if(src == target || p == nullptr) return std::make_pair(p, 0);
 			if(src >= m_vertices.size() || target >= m_vertices.size()) return std::pair<void*, int>((void*)0, -1);
 
 			std::ptrdiff_t const object_offset = (char const*)dynamic_ptr - (char const*)p;
