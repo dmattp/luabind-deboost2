@@ -28,12 +28,12 @@
 
 namespace luabind {
 
-	template<class T> struct by_value {};
-	template<class T> struct by_const_reference {};
-	template<class T> struct by_reference {};
-	template<class T> struct by_rvalue_reference {};
-	template<class T> struct by_pointer {};
-	template<class T> struct by_const_pointer {};
+	template<class T> struct by_value {using value_type=T;};
+	template<class T> struct by_const_reference {using value_type=T;};
+	template<class T> struct by_reference {using value_type=T;};
+	template<class T> struct by_rvalue_reference {using value_type=T;};
+	template<class T> struct by_pointer {using value_type=T;};
+	template<class T> struct by_const_pointer {using value_type=T;};
 
 	template<class T>
 	struct decorate_type

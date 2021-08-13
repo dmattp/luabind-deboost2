@@ -103,6 +103,8 @@
 #pragma warning(disable: 4355)
 #endif
 
+#define LUABIND_BREAK_ON_DEF_FUNCTION_WITH_REFERENCE_RESULT 0
+
 namespace luabind {
 	namespace detail {
 		struct unspecified {};
@@ -110,6 +112,13 @@ namespace luabind {
 		template<class Derived> struct operator_;
 
 		struct you_need_to_define_a_get_const_holder_function_for_your_smart_ptr {};
+
+		template <typename R, typename ... Args>
+			R get_return_type (R(*)(Args...));
+		template <typename C,typename R, typename ... Args>
+			R get_return_type (R(C::*)(Args...));
+		template <typename C,typename R, typename ... Args>
+			R get_return_type (R(C::*)(Args...) const);
 	}
 
 	template < typename... BaseClasses >
@@ -418,6 +427,11 @@ namespace luabind {
 		template<class F, typename... Injectors>
 		class_& def(char const* name, F fn, policy_list< Injectors... > policies = no_policies())
 		{
+#if LUABIND_BREAK_ON_DEF_FUNCTION_WITH_REFERENCE_RESULT == 1
+			using TReturn = decltype(detail::get_return_type(fn));
+			if constexpr(std::is_reference_v<TReturn>)
+				__debugbreak();
+#endif
 			return this->virtual_def(name, fn, policies, null_type());
 		}
 
