@@ -198,11 +198,16 @@ namespace luabind {
 			using T = typename meta::front<Signature>::type;
 			if constexpr(pointer_traits<T>::is_pointer)
 			{
-				get_type_info<pointer_traits<T>::value_type>::get(L,typeInfo);
 				if constexpr(std::is_pointer_v<T>)
+				{
+					get_type_info<std::remove_pointer_t<T>>::get(L,typeInfo);
 					typeInfo.isPointer = true;
+				}
 				else
+				{
+					get_type_info<pointer_traits<T>::value_type>::get(L,typeInfo);
 					typeInfo.isSmartPtr = true;
+				}
 			}
 			else
 				get_type_info<T>::get(L,typeInfo);
