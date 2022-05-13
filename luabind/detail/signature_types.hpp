@@ -223,8 +223,16 @@ namespace luabind {
 			TypeInfo typeInfo;
 			if constexpr(pointer_traits<first>::is_pointer)
 			{
-				get_type_info<pointer_traits<first>::value_type>::get(L,typeInfo);
-				typeInfo.isSmartPtr = true;
+				if constexpr(std::is_pointer_v<first>)
+				{
+					get_type_info<std::remove_pointer_t<first>>::get(L,typeInfo);
+					typeInfo.isSmartPtr = true;
+				}
+				else
+				{
+					get_type_info<pointer_traits<first>::value_type>::get(L,typeInfo);
+					typeInfo.isSmartPtr = true;
+				}
 			}
 			else
 				get_type_info<first>::get(L,typeInfo);
