@@ -22,16 +22,19 @@ namespace luabind {
 				iterator* self = static_cast<iterator*>(
 					lua_touserdata(L, lua_upvalueindex(1)));
 
+				int nret = 1;
 				if(self->first != self->last)
 				{
+					auto t = lua_gettop(L);
 					push_to_lua(L, *self->first);
+					nret = lua_gettop(L) -t;
 					++self->first;
 				} else
 				{
 					lua_pushnil(L);
 				}
 
-				return 1;
+				return nret;
 			}
 
 			static int destroy(lua_State* L)
