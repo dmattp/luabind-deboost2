@@ -5,13 +5,18 @@
 #ifndef LUABIND_SIGNATURE_TYPES_HPP
 # define LUABIND_SIGNATURE_TYPES_HPP
 
+
 #include <luabind/config.hpp>
 #include <luabind/lua_include.hpp>
 #include <luabind/typeid.hpp>
 #include <luabind/pseudo_traits.hpp>
 #include <luabind/detail/meta.hpp>
 #include <luabind/detail/type_info.hpp>
+#include <luabind/detail/class_registry.hpp>
 #include <vector>
+
+
+
 
 namespace luabind {
 	namespace adl {
@@ -26,6 +31,8 @@ namespace luabind {
 	using adl::object;
 	using adl::argument;
 	using adl::table;
+    template <class T, class Enable = void>
+    struct get_type_info;
 
 	namespace detail {
 		template <typename T>
@@ -159,16 +166,18 @@ namespace luabind {
         } \
     };
 
-	LUABIND_TYPE_TO_TYPEINFO(char,TypeInfo::FundamentalType::Char)
-	LUABIND_TYPE_TO_TYPEINFO(unsigned char,TypeInfo::FundamentalType::UChar)
-	LUABIND_TYPE_TO_TYPEINFO(short,TypeInfo::FundamentalType::Short)
-	LUABIND_TYPE_TO_TYPEINFO(unsigned short,TypeInfo::FundamentalType::UShort)
-	LUABIND_TYPE_TO_TYPEINFO(int,TypeInfo::FundamentalType::Int)
-	LUABIND_TYPE_TO_TYPEINFO(unsigned int,TypeInfo::FundamentalType::UInt)
-	LUABIND_TYPE_TO_TYPEINFO(long,TypeInfo::FundamentalType::Int)
-	LUABIND_TYPE_TO_TYPEINFO(unsigned long,TypeInfo::FundamentalType::UInt)
-	LUABIND_TYPE_TO_TYPEINFO(int64_t,TypeInfo::FundamentalType::Long)
-	LUABIND_TYPE_TO_TYPEINFO(uint64_t,TypeInfo::FundamentalType::ULong)
+    //Prefer standarized sizes over builtins. This is due to long int being diffrent sizes in diffrent platforms.
+    LUABIND_TYPE_TO_TYPEINFO(std::int8_t,TypeInfo::FundamentalType::Char)
+    LUABIND_TYPE_TO_TYPEINFO(std::uint8_t,TypeInfo::FundamentalType::UChar)
+
+    LUABIND_TYPE_TO_TYPEINFO(std::int16_t,TypeInfo::FundamentalType::Short)
+    LUABIND_TYPE_TO_TYPEINFO(std::uint16_t,TypeInfo::FundamentalType::UShort)
+
+    LUABIND_TYPE_TO_TYPEINFO(std::int32_t,TypeInfo::FundamentalType::Int)
+    LUABIND_TYPE_TO_TYPEINFO(std::uint32_t,TypeInfo::FundamentalType::UInt)
+
+    LUABIND_TYPE_TO_TYPEINFO(std::int64_t,TypeInfo::FundamentalType::Long)
+    LUABIND_TYPE_TO_TYPEINFO(std::uint64_t,TypeInfo::FundamentalType::ULong)
 	LUABIND_TYPE_TO_TYPEINFO(void,TypeInfo::FundamentalType::Void)
 	LUABIND_TYPE_TO_TYPEINFO(bool,TypeInfo::FundamentalType::Bool)
 	LUABIND_TYPE_TO_TYPEINFO(float,TypeInfo::FundamentalType::Float)
