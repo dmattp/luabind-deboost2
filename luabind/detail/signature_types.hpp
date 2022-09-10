@@ -64,6 +64,14 @@ namespace luabind {
 		}
 
 
+            template <class T, class Enable = void>
+            struct get_type_info
+            {
+                static void get(lua_State* L,TypeInfo &outTypeInfo)
+                {
+                    get_base_type_info<T>(L,outTypeInfo);
+                }
+            };
 		template <typename T0,typename... Ts>
 			void get_variadic_types(lua_State *L,TypeInfo &outTypeInfo)
 		{
@@ -83,14 +91,7 @@ namespace luabind {
 			}
 		};
 
-		template <class T, class Enable = void>
-		struct get_type_info
-		{
-			static void get(lua_State* L,TypeInfo &outTypeInfo)
-			{
-				get_base_type_info<T>(L,outTypeInfo);
-			}
-		};
+
 
 		template <class T, class Enable = void>
 		struct get_user_type_info
