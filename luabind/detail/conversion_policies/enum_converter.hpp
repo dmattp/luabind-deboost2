@@ -27,6 +27,11 @@
 #include <luabind/detail/type_traits.hpp>
 #include <luabind/detail/conversion_policies/conversion_base.hpp>
 
+namespace std {
+template< bool B, class T = void >
+using enable_if_t = typename enable_if<B,T>::type;
+    }
+
 namespace luabind {
 	namespace detail {
 

@@ -36,7 +36,7 @@ namespace luabind {
 
 			virtual int call(lua_State* L, invoke_context& ctx) /* const */ = 0;
 			virtual void format_signature(lua_State* L, char const* function) const = 0;
-			virtual void get_signature_info(lua_State* L, char const* function, std::vector<TypeInfo> &outTypes) const = 0;
+//			virtual void get_signature_info(lua_State* L, char const* function, std::vector<TypeInfo> &outTypes) const = 0;
 
 			lua_CFunction entry;
 			std::string name;

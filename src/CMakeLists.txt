@@ -2,6 +2,7 @@
 # Ryan Pavlik <rpavlik@iastate.edu>
 # http://academic.cleardefinition.com/
 # Iowa State University HCI Graduate Program/VRAC
+set(CMAKE_CXX_STANDARD 17)
 
 set(LUABIND_SRCS
 	class.cpp
@@ -141,6 +142,12 @@ endif()
 
 add_library(luabind ${LUABIND_SRCS} ${LUABIND_API} ${LUABIND_DETAIL_API} ${LUABIND_DEFAULT_POLICIES} ${LUABIND_USER_POLICIES})
 target_link_libraries(luabind ${LUA_LIBRARIES} ${LUABIND_EXTRA_LIBS})
+
+set_target_properties(luabind PROPERTIES
+  CXX_STANDARD 20
+  CXX_STANDARD_REQUIRED ON)
+
+target_compile_features(luabind PUBLIC cxx_std_17)
 
 if(UNIX)
 	target_link_libraries(luabind dl)

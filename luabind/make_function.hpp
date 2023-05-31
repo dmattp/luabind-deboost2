@@ -49,7 +49,7 @@ namespace luabind {
 				detail::format_signature(L, function, Signature());
 			}
 
-			void get_signature_info(lua_State* L, char const* function, std::vector<TypeInfo> &outTypes) const;
+//			void get_signature_info(lua_State* L, char const* function, std::vector<TypeInfo> &outTypes) const;
 
 			static bool invoke_defer(lua_State* L, function_object_impl* impl, invoke_context& ctx, int& results)
 			{
